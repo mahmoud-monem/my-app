@@ -6,9 +6,12 @@ import {
 } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
 import { CryptoService } from './common/crypto.service';
 import { OrmConfig } from './config/orm.config';
 import { AuthenticationMiddleware } from './middlewares/authentication.middleware';
+import { AccountModule } from './modules/account/account.module';
+import { QuestionModule } from './modules/question/question.module';
 
 @Module({
   imports: [
@@ -19,6 +22,9 @@ import { AuthenticationMiddleware } from './middlewares/authentication.middlewar
     TypeOrmModule.forRootAsync({
       useClass: OrmConfig,
     }),
+    AuthModule,
+    AccountModule,
+    QuestionModule,
   ],
   providers: [CryptoService],
 })

@@ -1,18 +1,15 @@
 import { Module } from '@nestjs/common';
 
 import { CryptoService } from 'src/common/crypto.service';
-import { StorageService } from 'src/common/storage.service';
-import { ConfigurationModule } from 'src/config/configuration.module';
-import { DatabaseModule } from 'src/database/database.module';
 
-import { AccountFCMTokenModule } from './account-fcm-token/account-fcm-token.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Account } from 'src/entities/account.entity';
 import { AccountController } from './account.controller';
 import { AccountService } from './account.service';
 
 @Module({
-  imports: [DatabaseModule, ConfigurationModule, AccountFCMTokenModule],
-  providers: [AccountService, CryptoService, StorageService],
+  imports: [TypeOrmModule.forFeature([Account])],
+  providers: [AccountService, CryptoService],
   controllers: [AccountController],
-  exports: [AccountFCMTokenModule],
 })
 export class AccountModule {}
